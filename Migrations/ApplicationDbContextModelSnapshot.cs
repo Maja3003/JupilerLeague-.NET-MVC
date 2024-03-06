@@ -22,6 +22,30 @@ namespace JupilerLeague.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("JupilerLeague.Models.FavouriteTeamViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteTeams");
+                });
+
             modelBuilder.Entity("JupilerLeague.Models.MatchViewModel", b =>
                 {
                     b.Property<int>("Id")
@@ -362,6 +386,25 @@ namespace JupilerLeague.Migrations
                     b.HasBaseType("JupilerLeague.Models.TeamViewModel");
 
                     b.HasDiscriminator().HasValue("TeamInTeams");
+                });
+
+            modelBuilder.Entity("JupilerLeague.Models.FavouriteTeamViewModel", b =>
+                {
+                    b.HasOne("JupilerLeague.Models.TeamViewModel", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("JupilerLeague.Models.MatchViewModel", b =>
