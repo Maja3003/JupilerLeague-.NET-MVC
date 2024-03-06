@@ -68,7 +68,7 @@ namespace JupilerLeague
                 endpoints.MapControllerRoute(
                     name: "login",
                     pattern: "Login",
-                    defaults: new { controller = "Login", action = "Login" }); // Poprawiono ścieżkę dla akcji Logowania
+                    defaults: new { controller = "Login", action = "Login" }); 
 
                 endpoints.MapControllerRoute(
                     name: "register",

@@ -16,6 +16,8 @@ namespace JupilerLeague.Data
         public DbSet<TeamInLeagueTable> LeagueTable { get; set; }
         public DbSet<TeamInTeams> Teams { get; set; }
         public DbSet<MatchViewModel> Matches { get; set; }
+
+        public DbSet<FavouriteTeamViewModel> FavouriteTeam { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,16 +33,16 @@ namespace JupilerLeague.Data
                 .WithMany(t => t.AwayMatches)
                 .HasForeignKey(m => m.AwayTeamId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FavouriteTeamViewModel>().ToTable("FavouriteTeam");
         }
     }
 
     public class TeamInLeagueTable : TeamViewModel
     {
-        // Dodatkowe właściwości związane z tabelą ligową, jeśli są potrzebne
     }
 
     public class TeamInTeams : TeamViewModel
     {
-        // Dodatkowe właściwości związane z drużyną, jeśli są potrzebne
     }
 }

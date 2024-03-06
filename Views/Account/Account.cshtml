@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "My Account";
+}
+
+<style>
+    body, html {
+        font-family: 'Berlin Sans FB'; 
+        background-color: #f0f0f0; 
+        color: #333; 
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .account-page-container {
+        display: flex;
+        justify-content: center;
+        padding: 50px 0;
+        gap: 20px; 
+        align-items: flex-start; 
+    }
+
+    .account-info-container {
+        background-color: white; 
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+        padding: 20px;
+        width: 45%; 
+    }
+
+    .team-selection-container {
+        background-color: white; 
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 20px;
+        width: 45%; 
+        height: fit-content; 
+    }
+
+    .user-details, .favorite-teams-list {
+        margin-bottom: 20px;
+    }
+
+    .user-email {
+        font-size: 20px;
+    }
+
+    .favorite-teams-section h3, .team-selection-container h3 {
+        font-size: 1.5em;
+        color: #b71c1c; 
+        margin-bottom: 10px;
+    }
+
+    .favorite-team {
+        font-size: 1.2em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd; 
+        padding-bottom: 5px; 
+    }
+
+    .team-select {
+        width: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: .375rem .75rem;
+        font-size: 1em;
+        margin-bottom: 15px;
+    }
+
+    .add-fav-btn {
+        background-color: #b71c1c;
+        color: white;
+        border: none;
+        padding: .375rem .75rem;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1em;
+    }
+
+        .add-fav-btn:hover {
+            background-color: #ff7878; 
+        }
+
+    .remove-fav-form {
+        display: inline;
+    }
+
+    .remove-fav-btn {
+        background: none;
+        border: none;
+        color: #b71c1c;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1em;
+    }
+
+    .account-info-container, .team-selection-container {
+        text-align: center;
+    }
+
+    .account-section {
+        background-color: #fff; 
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .account-info-container {
+        width: 45%;
+    }
+
+    .team-selection-container {
+        width: 45%;
+    }
+
+    .extra-section {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+<h2 class="text-center my-account-title" style="margin: 15px;">My Account</h2>
+
+<div class="account-page-container">
+    <div class="team-selection-container">
+
+        <div class="user-details account-section">
+            <h3>Your Account Details</h3>
+            <p class="user-email" style="font-size: 26px">@User.Identity.Name</p>
+        </div>
+        
+
+        <!-- Formularz dodawania ulubionych drużyn -->
+        <div class="team-selection-section account-section">
+            <h3>Select Favorite Team</h3>
+            <form asp-action="AddFavoriteTeam" method="post">
+                <select name="teamId" class="form-control team-select">
+                    @foreach (var team in Model.AllTeams)
+                    {
+                        <option value="@team.Id">@team.Name</option>
+                    }
+                </select>
+                <button type="submit" class="btn add-fav-btn">Add to Favorites</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="account-info-container">
+        <!-- Sekcja informacji o koncie -->
+        <div class="extra-section">
+            <h3>Upcoming Matches</h3>
+            <p>Stay tuned! Information about the upcoming matches of your favorite teams will appear here.</p>
+        </div>
+        
+
+        <!-- Sekcja ulubionych drużyn -->
+        <div class="favorite-teams-section account-section">
+            <h3>Your Favorite Teams</h3>
+            <div class="favorite-teams-list">
+                @foreach (var team in Model.FavoriteTeams)
+                {
+                    <div class="favorite-team">
+                        <div class="team-info">
+                            <img src="@team.LogoPath" alt="Team Logo" style="max-height: 30px; margin-right: 10px;" />
+                            @team.Name
+                        </div>
+                        <div class="remove-fav-form">
+                            <form asp-action="RemoveFavoriteTeam" method="post">
+                                <button type="submit" class="btn remove-fav-btn" name="teamId" value="@team.Id">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

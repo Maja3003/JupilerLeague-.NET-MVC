@@ -25,12 +25,10 @@ namespace JupilerLeague.Controllers
                 .Where(m => !m.PointsUpdated)
                 .ToListAsync();
 
-            // Utwórz słownik do śledzenia, które mecze zostały zaktualizowane
             var updatedMatches = new Dictionary<string, bool>();
 
             foreach (var match in matches)
             {
-                // Klucz unikalnie identyfikujący mecz bez względu na to, która drużyna jest gospodarzem
                 var matchKey = $"{match.Week}_{System.Math.Min(match.HomeTeamId, match.AwayTeamId)}_{System.Math.Max(match.HomeTeamId, match.AwayTeamId)}";
 
                 if (!updatedMatches.ContainsKey(matchKey))
@@ -61,19 +59,16 @@ namespace JupilerLeague.Controllers
                         match.AwayTeam.MatchesPlayed += 1;
                     }
 
-                    // Oznacz, że punkty zostały zaktualizowane dla tego meczu
                     updatedMatches[matchKey] = true;
                     
                 }
                 match.PointsUpdated = true;
             }
 
-            // Zapisz zmiany w bazie danych
             await _context.SaveChangesAsync();
 
-            // Sortowanie i wyświetlanie drużyn
             var sortedTeams = await _context.Teams.OrderByDescending(t => t.Points).ToListAsync();
-            // Przydzielaj kolejne pozycje
+
             int position = 1;
             foreach (var team in sortedTeams)
             {
