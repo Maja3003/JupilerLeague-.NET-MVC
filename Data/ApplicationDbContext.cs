@@ -16,7 +16,6 @@ namespace JupilerLeague.Data
         public DbSet<TeamInLeagueTable> LeagueTable { get; set; }
         public DbSet<TeamInTeams> Teams { get; set; }
         public DbSet<MatchViewModel> Matches { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

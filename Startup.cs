@@ -22,6 +22,7 @@ namespace JupilerLeague
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -67,12 +68,17 @@ namespace JupilerLeague
                 endpoints.MapControllerRoute(
                     name: "login",
                     pattern: "Login",
-                    defaults: new { controller = "Account", action = "Login" }); // Poprawiono ścieżkę dla akcji Logowania
+                    defaults: new { controller = "Login", action = "Login" }); // Poprawiono ścieżkę dla akcji Logowania
 
                 endpoints.MapControllerRoute(
                     name: "register",
                     pattern: "Register",
-                    defaults: new { controller = "Account", action = "Register" }); // Poprawiono ścieżkę dla akcji Rejestracji
+                    defaults: new { controller = "Register", action = "Register" });
+
+                endpoints.MapControllerRoute(
+                    name: "account",
+                    pattern: "MyAccount",
+                    defaults: new { controller = "Account", action = "Account" });
             });
         }
     }

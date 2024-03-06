@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using JupilerLeague.Models;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using JupilerLeague.Data;
 
 namespace JupilerLeague.Controllers
 {
@@ -9,6 +11,7 @@ namespace JupilerLeague.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ApplicationDbContext _context;
 
         public LoginController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
@@ -41,9 +44,11 @@ namespace JupilerLeague.Controllers
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError(string.Empty, "Wrong password or account doesn't exist.");
             return View(model);
         }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

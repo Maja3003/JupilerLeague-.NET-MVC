@@ -42,6 +42,9 @@ namespace JupilerLeague.Migrations
                     b.Property<int>("HomeTeamId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("PointsUpdated")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Week")
                         .HasColumnType("int");
 
@@ -122,24 +125,23 @@ namespace JupilerLeague.Migrations
                     b.Property<int>("Points")
                         .HasColumnType("int");
 
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
                     b.Property<int>("Win")
                         .HasColumnType("int");
 
-                    b.Property<string>("Wynik1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Wynik1")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Wynik2")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Wynik2")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Wynik3")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Wynik3")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Wynik4")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Wynik4")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

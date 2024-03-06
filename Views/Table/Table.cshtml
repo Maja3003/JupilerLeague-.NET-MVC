@@ -96,6 +96,44 @@
         cursor: pointer;
     }
 
+    .collapse:not(.show) {
+        display: none;
+    }
+
+    .collapsing {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.35s ease;
+    }
+
+    .gold-text {
+        color: mediumseagreen /* Light Goldenrod Yellow */
+    }
+
+    .red-text {
+        color: #ff0000; /* Red */
+    }
+
+    .yellow-star {
+        color: #FFD700; /* Darker shade of yellow */
+        font-size: 20px;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .yellow-star::before {
+            content: '\2605'; /* Unicode character for a filled star */
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .yellow-star input:checked::before {
+            opacity: 1;
+        }
 </style>
 
 
@@ -129,7 +167,7 @@
             @foreach (var team in Model)
             {
                 <tr class="team-row" data-bs-toggle="collapse" data-bs-target="#matches-@team.Id" aria-expanded="false" aria-controls="matches-@team.Id">
-                    <td>Pos</td>
+                    <td class="@(team.Position <= 3 ? "gold-text" : (team.Position > Model.Count() - 3 ? "red-text" : ""))">@team.Position</td>
                     <td><img src="@team.LogoPath" alt="Logo" style="width: auto; max-height: 28px;" /></td>
                     <td>@team.Name</td>
                     <td>@team.MatchesPlayed</td>
@@ -141,13 +179,14 @@
                 </tr>
                 <tr id="matches-@team.Id" class="collapse">
                     <td colspan="9">
-
                         <p style="font-weight: bold; font-size: 18px; text-align: center; margin: 0;">Kolejka 1</p>
                         <div style="text-align: center; font-size: 20px;">
                             <img src="@team.Kolejka1Herb" alt="Herb" style="max-height: 25px;" />
                             @team.Kolejka1Nazwa
-                            <div class="text-center" style="display: inline-block; background-color: #b71c1c; color: white; border-radius: 8px; padding: 3px 8px; margin: 0 5px; font-size: 20px; ">
-                                @team.Wynik1:@team.Wynik2
+                            <div class="text-center" style="display: inline-block; margin: 0 5px;">
+                                <div style="background-color: #b71c1c; color: white; border-radius: 8px; padding: 3px 8px; font-size: 20px; display: inline-block;">
+                                    @team.Wynik1:@team.Wynik2
+                                </div>
                             </div>
                             <img src="@team.Kolejka1Herb2" alt="Herb2" style="max-height: 25px;" />
                             @team.Kolejka1Nazwa2
@@ -159,14 +198,17 @@
                         <div style="text-align: center; font-size: 20px;">
                             <img src="@team.Kolejka2Herb" alt="Herb" style="max-height: 25px;" />
                             @team.Kolejka2Nazwa
-                            <div class="text-center" style="display: inline-block; background-color: #b71c1c; color: white; border-radius: 8px; padding: 3px 8px; margin: 0 5px; font-size: 20px; ">
-                                @team.Wynik3:@team.Wynik4
+                            <div class="text-center" style="display: inline-block; margin: 0 5px;">
+                                <div style="background-color: #b71c1c; color: white; border-radius: 8px; padding: 3px 8px; font-size: 20px; display: inline-block;">
+                                    @team.Wynik3:@team.Wynik4
+                                </div>
                             </div>
                             <img src="@team.Kolejka2Herb2" alt="Herb2" style="max-height: 25px;" />
                             @team.Kolejka2Nazwa2
                         </div>
                     </td>
                 </tr>
+
             }
         </tbody>
     </table>
