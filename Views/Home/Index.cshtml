@@ -1,0 +1,229 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    header {
+        font-family: 'Berlin Sans FB';
+        background-color: black;
+        padding: 6px;
+        color: white;
+        text-align: center;
+    }
+
+        header .navbar-brand {
+            font-size: 2em;
+        }
+
+        header .nav-link {
+            font-size: 1.5em;
+        }
+
+    .bottom-rectangles {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
+
+    .rectangle {
+        width: 100%;
+        max-width: 400px;
+        min-height: 300px;
+        font-family: 'Berlin Sans FB';
+        background: linear-gradient(to bottom, #ff7878 10%, #b71c1c 90%);
+        border-radius: 20px;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        font-size: 1.25em;
+        margin: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        overflow: hidden;
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .rectangle:hover {
+        transform: translateY(-10px);
+    }
+
+    .rectangle h1 {
+        font-family: 'Bookman Old Style';
+        margin-top: 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #ffeeba; 
+    }
+
+    .sidebar {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 20px;
+        position: fixed;
+        top: 105px;
+        left: 0;
+        height: 100%;
+        width: 200px; /* Adjusted width to match the width of the active league */
+        overflow-x: hidden;
+        z-index: 1000;
+    }
+
+        .sidebar .flag-container {
+            display: flex; /* Użyj Flexboxa do ułożenia elementów w poziomie */
+            align-items: center; /* Wycentruj elementy wertykalnie */
+            margin-bottom: 20px;
+            /* Dodaj odstęp od kolejnych elementów */
+        }
+
+        .sidebar img {
+            width: 25px; /* Mała flaga */
+            height: auto;
+            margin-right: 10px; /* Odstęp od tekstu */
+            margin-top: -5px;
+        }
+
+        .sidebar h5 {
+            font-size: 1.25rem; /* Dostosowuje rozmiar tekstu, jeśli to konieczne */
+        }
+
+        .sidebar .countries, .sidebar .leagues {
+            margin-top: 10px; /* Odstęp między sekcjami */
+        }
+
+    .countries span {
+        font-weight: bold;
+    }
+
+    .underline1 {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 5px; /* Długość linii podkreślenia */
+    }
+
+        .underline1::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 4px; /* Pozycja linii podkreślenia względem tekstu */
+            width: 80%; /* Szerokość linii podkreślenia */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5); /* Zwiększona przezroczystość i grubość linii */
+        }
+
+    .underline2 {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 5px; /* Długość linii podkreślenia */
+    }
+
+        .underline2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px; /* Pozycja linii podkreślenia względem tekstu */
+            width: 120%; /* Szerokość linii podkreślenia */
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5); /* Zwiększona przezroczystość i grubość linii */
+        }
+
+    .active-league {
+        background: rgba(0, 0, 0, 0.45);
+        color: white;
+        width: calc(100% + 20px);
+        min-height: 40px;
+        display: flex;
+        width: 150%;
+        flex-direction: column; /* Align text in a column */
+        text-align: left;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-left: -8px;
+    }
+
+        .active-league h8 {
+            margin: 0px; /* Remove margin for h5 to align with other text */
+        }
+
+        .active-league:hover,
+        .countries p:hover,
+        .leagues p:hover {
+            cursor: pointer;
+        }
+
+
+</style>
+
+<div class="text-center" style="margin-top: 20px; ">
+    <img src="https://i.pinimg.com/originals/3a/c0/ac/3ac0ac1f8b6d7d968f65df4709e56c80.png" alt="Jupiler League Logo" class="img-fluid" width="15%" />
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <hr style="width: 14.5%; margin-top: 2px; margin-right: 10px; border: 1px solid red;">
+        <p style="font-size: 2.5em; margin-top: 2px; color: red; font-weight: bold; font-family: 'Book Antiqua', sans-serif;"> THE BELGIAN </p>
+        <hr style="width: 14.5%; margin-top: 2px; margin-left: 10px; border: 1px solid red;">
+    </div>
+    <p style="font-size: 4em; margin-top: 2px; color: red; font-weight: bold; font-family: 'Book Antiqua', sans-serif;">JUPILER PRO LEAGUE</p>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <hr style="width: 20%; margin-top: 2px; margin-right: 10px; border: 1px solid red;">
+        <p style="font-size: 2em; margin-top: 2px; color: red; font-weight: bold; font-family: 'Book Antiqua', sans-serif;"> 2022/2023 </p>
+        <hr style="width: 20%; margin-top: 2px; margin-left: 10px; border: 1px solid red;">
+    </div>
+</div>
+
+<div class="container">
+    <div class="bottom-rectangles">
+        <div class="rectangle">
+            <h1>STATISTICS</h1>
+            <p>Matches played: 330</p>
+            <p>Goals scored: 1,011</p>
+            <p>Top goalscorer: Hugo Cuypers (27 goals)</p>
+        </div>
+        <div class="rectangle">
+            <h1>SEASON RECORDS</h1>
+            <p>Biggest home win: Club Brugge 7–0 Eupen </p>
+            <p>Biggest away win: Oostende 1-6 Union SG </p>
+            <p>Longest winning run: 10 </p>
+            <p>Longest losing run: 7</p>
+        </div>
+        <div class="rectangle">
+            <h1>ATTENDANCE</h1>
+            <p>Highest attendance: 26,271</p>
+            <p>Total attendance: 3,154,698</p>
+            <p>Average attendance: 9,560</p>
+        </div>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="flag-container underline1" style="margin: 0;">
+        <img src="https://www.svgrepo.com/show/405423/flag-for-flag-belgium.svg" alt="Flaga Belgii" />
+        <h5>BELGIUM</h5>
+    </div>
+    <div class="leagues">
+        <div class="active-league">
+            <h8>Jupiler Pro League </h8>
+        </div>
+        <p>Challenger Pro League</p>
+        <p>National Division 1</p>
+        <p>Second Amateur Division Group ACFF</p>
+        <p>Second Amateur Division Group VFV A</p>
+    </div>
+    <div class="countries">
+        <h5 class="underline2">COUNTRIES</h5>
+        <p>Albania</p>
+        <p>Algeria</p>
+        <p>Andorra</p>
+        <p>Angola</p>
+        <p>Antigua & Barbuda</p>
+        <p>Argentina</p>
+        <p>Armenia</p>
+        <p>Aruba</p>
+        <p>Australia</p>
+        <p>Austria</p>
+        <p>Azerbaijan</p>
+        <p>Bahrain</p>
+        <p>Bangladesh</p>
+        <p>Barbados </p>
+        <p><strong><u>Show more</u></strong> <span class="triangle">&#9207;</span></p>
+    </div>
+</div>
+

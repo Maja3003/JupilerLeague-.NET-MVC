@@ -1,0 +1,112 @@
+﻿@model JupilerLeague.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+    body {
+        font-family: 'Berlin Sans FB'; /* Dostosuj do używanego fontu na pierwszej stronie */
+        background-color: #f0f0f0; /* Jasne tło, dostosuj do kolorów motywu */
+    }
+
+    .login-container {
+        background-color: white; /* Tło formularza */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Lekki cień dla głębi */
+        padding: 40px; /* Zwiększony padding */
+        max-width: 500px; /* Nieco szerszy kontener */
+        margin: 20px auto; /* Centruje formularz na stronie */
+    }
+
+    .form-group label {
+        color: #333; /* Ciemniejszy kolor tekstu dla lepszej czytelności */
+        font-size: 1.2em; /* Zwiększony rozmiar czcionki dla labeli */
+    }
+
+    .form-control {
+        font-size: 1.1em; /* Zwiększony rozmiar czcionki dla pól formularza */
+        padding: 10px; /* Grubszy padding dla pól formularza */
+    }
+
+    .form-check-label {
+        font-size: 1.1em; /* Zwiększony rozmiar czcionki dla etykiet checkboxów */
+    }
+
+    .btn-primary {
+        font-size: 1.1em; /* Zwiększony rozmiar czcionki dla przycisków */
+        padding: 10px 20px; /* Grubszy padding dla przycisków */
+        background-color: #b71c1c; /* Dostosuj kolor przycisku do motywu */
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #ff7878; /* Lżejszy cień przycisku */
+        }
+
+    .alert-success {
+        font-size: 1.1em; /* Zwiększony rozmiar czcionki dla alertów */
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    h2.text-center {
+        margin-top: 150px;
+        font-size: 2.5em; /* Zwiększony rozmiar czcionki dla nagłówka */
+    }
+
+    .register-link {
+        font-size: 1.2em; /* Zwiększa rozmiar czcionki */
+        margin-top: 20px; /* Dodatkowy margines górny, jeśli potrzebny */
+    }
+</style>
+
+
+<h2 class="text-center">Login</h2>
+
+<div class="login-container" >
+    <form asp-controller="Login" asp-action="Login" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        @if (TempData["RegistrationSuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["RegistrationSuccessMessage"]
+            </div>
+        }
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <div class="form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label"></label>
+            </div>
+        </div>
+
+        <div class="text-center register-link">
+            Don't have an account? <a asp-controller="Register" asp-action="Register">Register</a>
+        </div>
+
+        <br>
+
+        <div class="text-danger text-center">
+            @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+            {
+                <p>@ViewData["ErrorMessage"]</p>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
